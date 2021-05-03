@@ -58,3 +58,9 @@ https://doi.org/10.1145/3411763.3451542
 
 SIGGRAPH'21 Demo
 (Not Published Yet)
+
+Repository of JetController
+https://github.com/ntu-hci-lab/JetController
+
+Website of JetController
+https://jetcontroller.org
