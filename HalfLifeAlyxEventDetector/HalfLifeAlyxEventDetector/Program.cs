@@ -52,7 +52,7 @@ namespace HalfLifeAlyxEventDetector
                 Shotgun_Chambered();
             Console.WriteLine($"Event {Enum.GetName(typeof(HapticEventType), Haptic)} with Weapon {Enum.GetName(typeof(NowWeaponType), WeaponType)}");
         }
-        private static void ShootHapticFeedback(NowWeaponType WeaponType)
+        static void ShootHapticFeedback(NowWeaponType WeaponType)
         {
             switch (WeaponType)
             {
@@ -64,7 +64,7 @@ namespace HalfLifeAlyxEventDetector
                     break;
             }
         }
-        private static void SwitchWeaponHapticFeedback(NowWeaponType WeaponType)
+        static void SwitchWeaponHapticFeedback(NowWeaponType WeaponType)
         {
             switch (WeaponType)
             {
@@ -77,7 +77,7 @@ namespace HalfLifeAlyxEventDetector
             }
             return;
         }
-        private static void InsertBulletHapticFeedback(NowWeaponType WeaponType)
+        static void InsertBulletHapticFeedback(NowWeaponType WeaponType)
         {
             switch (WeaponType)
             {
