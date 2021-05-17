@@ -124,23 +124,23 @@ Please modify these function for actuating your haptic devices.
 
 # Links to JetController
 
-CHI'21 Full Paper
+## CHI'21 Full Paper
 
 [Author-Izer Link](https://dl.acm.org/doi/10.1145/3411764.3445549?cid=99659702103)
 
 (You can obtain the camera-ready version from the ACM Digital Library at no charge via Author-Izer Service Link)
 
-CHI'21 Interactivity (Does not utilize the program) 
+## CHI'21 Interactivity (Does not utilize the program) 
 
 [Author-Izer Link](https://dl.acm.org/doi/10.1145/3411763.3451542?cid=99659702103)
 
 (You can obtain the camera-ready version from the ACM Digital Library at no charge via Author-Izer Service Link)
 
-SIGGRAPH'21 Demo
+## SIGGRAPH'21 Demo
 (Not Published Yet)
 
-Repository of JetController
+## Repository of JetController
 https://github.com/ntu-hci-lab/JetController
 
-Website of JetController
+## Website of JetController
 https://jetcontroller.org
