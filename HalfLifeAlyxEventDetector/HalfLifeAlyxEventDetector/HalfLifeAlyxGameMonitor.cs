@@ -35,7 +35,8 @@ namespace HalfLifeAlyxEventDetector
             ChamberedRound,
             Shotgun_Open,
             Shotgun_Close,
-            Shotgun_Chambered
+            Shotgun_Chambered,
+            GameReloaded
         }
         public enum ShotgunStateType
         {
@@ -46,7 +47,7 @@ namespace HalfLifeAlyxEventDetector
         private Action<NowWeaponType, HapticEventType> EventCallbackHandler;
         Socket socket;
         Thread ReceiveEventThread;
-
+        private int PlayerReloadedCount = 0;
         const uint DataWindow = 6;
         private uint EventCounter = DataWindow;
         private uint SwitchWeaponAppearsAt = 0;
@@ -67,7 +68,7 @@ namespace HalfLifeAlyxEventDetector
             ReceiveEventThread = new Thread(ReceiveEventHandler);
             ReceiveEventThread.Start();
         }
-        public void SendCommandToHalfLifeAlyx(string Command)
+        public HalfLifeAlyxGameMonitor SendCommandToHalfLifeAlyx(string Command)
         {
             var LowerCommand = Command.ToLower().Trim();
             byte[] Headers = {0x43, 0x4D, 0x4E, 0x44, 0x00, 0xD3, 0x00, 0x00, 0x00};
@@ -82,6 +83,28 @@ namespace HalfLifeAlyxEventDetector
             TargetArray.Add(0);
             byte[] SendDataArray = TargetArray.ToArray();
             socket.Send(SendDataArray);
+            return this;
+        }
+        /// <summary>
+        /// A blocking function that return value after the player rejoins the game.
+        /// The function is used when player reloads/relocates in the game.
+        /// </summary>
+        public HalfLifeAlyxGameMonitor WaitPlayerReloaded()
+        {
+            int CurrentPlayerReloadedCount = PlayerReloadedCount;
+            while (CurrentPlayerReloadedCount == PlayerReloadedCount)
+                Thread.Sleep(10);
+            return this;
+        }
+        /// <summary>
+        /// Reload game saved files. 
+        /// It occurs a reload event. Use WaitPlayerReloaded() to wait for the game ready.
+        /// </summary>
+        /// <param name="FilePath">Game saved file name. LoadSavedFile("test"); equals to load gamesaved file: 'save\test.sav'</param>
+        public HalfLifeAlyxGameMonitor LoadSavedFile(string FilePath = "autosave")
+        {
+            SendCommandToHalfLifeAlyx($"load {FilePath}");
+            return this;
         }
         /// <summary>
         /// You still take damage but can’t die (Jeff can still kill you).
@@ -135,6 +158,7 @@ namespace HalfLifeAlyxEventDetector
         }
         /// <summary>
         /// Used to load a map. Can also load maps from the SteamVR Workshop Tools.
+        /// It occurs a reload event. Use WaitPlayerReloaded() to wait for the game ready.
         /// Src: https://indiefaq.com/guides/1471-half-life-alyx.html
         /// </summary>
         /// <param name="map_name">Type Map Name.</param>
@@ -149,9 +173,11 @@ namespace HalfLifeAlyxEventDetector
         }
         private void ReceiveEventHandler()
         {
+            Thread.CurrentThread.Priority = ThreadPriority.Highest;
+            Thread.CurrentThread.IsBackground = true;
             byte[] Packet = new byte[4 * 1024 * 1024];
             //Drop first 5 second data
-            Thread.Sleep(5000);
+            //Thread.Sleep(5000);
             socket.Receive(Packet);
             while (true)
             {
@@ -179,10 +205,16 @@ namespace HalfLifeAlyxEventDetector
                 }
             }
         }
-
+        private void NotifyGameReloaded()
+        {
+            ++PlayerReloadedCount;
+            EventCallbackHandler(NowWeapon, HapticEventType.GameReloaded);
+        }
         private void ParseEvent(string Event)
         {
-            if (Event.Contains("weapon_switch"))
+            if (Event.Contains("player_connect_full"))
+                NotifyGameReloaded();
+            else if (Event.Contains("weapon_switch"))
                 SwitchWeaponAppearsAt = EventCounter;
             else if (Event.Contains("player_teleport_start"))
                 EventCallbackHandler(NowWeapon, HapticEventType.PlayerTeleportStart);
