@@ -38,7 +38,19 @@ It means you should always make your project open-sourced if you want to clone a
 
 ### BibTeX for JetController SIGGRAPH'21 Demo
 ```
-(Not Published Yet)
+@INBOOK {10.1145/3450616.3464520,
+    author    = "Wang, Yu-Wei and Lin, Yu-Hsin and Miyatake, Yoko and Tsai, Ching-Yi and Ku, Pin-Sung and Chen, Mike Y.",
+    title     = "JetController: High-Speed Ungrounded 3-DoF Force Feedback Controllers Using Air Propulsion Jets",
+    publisher = "Association for Computing Machinery",
+    year      = "2021",
+    address   = "New York, NY, USA",
+    isbn      = "9781450383691",
+    url       = "https://doi.org/10.1145/3450616.3464520",
+    abstract  = "JetController is a novel high-speed, persistent 3-DoF ungrounded force feedback controller.It uses high-speed pneumatic solenoid valves to modulate compressed air to achievefull impulses of 50Hz at 1.0N (20Hz at 4.0N), and combines multiple air propulsionjets to generate 3-DoF ungrounded force feedback. Compared to propeller-based approaches,JetController supports 10-30 times faster impulse frequency, and its handheld deviceis significantly lighter and more compact. JetController enables a wide range of hapticevents in games and VR experiences, from firing automatic weapons in games like Halo(15Hz) to slicing fruits in Fruit Ninja in 3-DoF (up to 45Hz). To demonstrate JetController,we integrated our prototype with two best-selling VR games, Half-life: Alyx and FruitNinja VR, to highlight a variety of 3-DoF interactions that were not possible before.",
+    booktitle = "ACM SIGGRAPH 2021 Labs",
+    articleno = "5",
+    numpages  = "2"
+}
 ```
 
 ### BibTeX for the repository
@@ -126,18 +138,19 @@ Please modify these function for actuating your haptic devices.
 
 ## CHI'21 Full Paper
 
-[Author-Izer Link](https://dl.acm.org/doi/10.1145/3411764.3445549?cid=99659702103)
+[Author-Izer Download Link](https://dl.acm.org/doi/10.1145/3411764.3445549?cid=99659702103)
 
 (You can obtain the camera-ready version from the ACM Digital Library at no charge via Author-Izer Service Link)
 
-## CHI'21 Interactivity (Does not utilize the program) 
+## CHI'21 Interactivity (We didn't use Half-Life: Alyx in this paper) 
 
-[Author-Izer Link](https://dl.acm.org/doi/10.1145/3411763.3451542?cid=99659702103)
+[Author-Izer Download Link](https://dl.acm.org/doi/10.1145/3411763.3451542?cid=99659702103)
 
 (You can obtain the camera-ready version from the ACM Digital Library at no charge via Author-Izer Service Link)
 
-## SIGGRAPH'21 Demo
-(Not Published Yet)
+## SIGGRAPH'21 Labs
+
+[Download Link](https://dl.acm.org/doi/10.1145/3450616.3464520)
 
 ## Repository of JetController
 https://github.com/ntu-hci-lab/JetController
