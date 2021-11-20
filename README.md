@@ -79,11 +79,12 @@ Also, it is welcome to cite and introduce our acadamic papers, JetController, if
 # How to use this
 
 As soon as you execute the program, the program will automatically find your Steam location.
+You then can execute Half-Life: Alyx by calling *HLA_Manager.RestartHalfLifeAlyx(HalfLifeAlyx_Autoexec)*.
 
 ## Game Mod
-To detect the game events, the program creates a game mod, including **show events** and **cheats on**.
+To detect the game events, the program have to create a game mod, including **show events** and **cheats on**, for Half-Life: Alyx.
 
-You can customize the game mod like this:
+If you want to add some cheats, you can customize the game mod like this:
 
 ```
 HalfLifeAlyx_Autoexec HLA_Autoexec =
@@ -92,11 +93,11 @@ HalfLifeAlyx_Autoexec HLA_Autoexec =
     GiveAllUnlockedWeapons(true);
 ```
 
-Be aware that you should setup the object before **restarting** Half-Life: Alyx.
+Be aware that you should setup the object before **executing/restarting** Half-Life: Alyx.
 
-To restart Half-Life: Alyx, just pass the mod you selected.
+To programmatically execute/restart Half-Life: Alyx, just pass the mod you selected.
 
-You are allowed to pass a null pointer.
+If you don't wish to use other game mod, you are allowed to pass a null pointer to the function *HLA_Manager.RestartHalfLifeAlyx(NULL)*, and the program will only create minimum required game mod for game event detect purpose.
 
 ```
 HLA_Manager.RestartHalfLifeAlyx(HLA_Autoexec);
@@ -110,9 +111,14 @@ Some mods are only available when your game is loaded, such as God Mode and tele
 
 You can use the code to achieve that.
 
+A function *GameMonitor.WaitPlayerReloaded()* could help you detecting the game loaded event.
+
+An example code is given to show how to teleport to a specify map after the game is fully loaded.
+
 ```
 GameMonitor
     .SetBuddha(true) //God Mode
+    .WaitPlayerReloaded() //Wait for game loading finished
     .Map("a1_intro_world");	//Switch Maps
 ```
 
