@@ -55,13 +55,13 @@ namespace HalfLifeAlyxEventDetector
 
             foreach (var JSON_Text in All_Lists)
             {
-                var PureTextContent = JSON_Text.Replace("\"", "").Trim().Replace("\t\t", "\t").Replace("\\\\", "\\");
-                if (PureTextContent.Length == 0)
+                if (!JSON_Text.Contains("\"path\""))
                     continue;
+                var PureTextContent = JSON_Text.Replace("\"", "").Trim().Replace("\t\t", "\t").Replace("\\\\", "\\");
                 string[] KeyValue = PureTextContent.Split('\t');
                 if (KeyValue.Length < 2)
                     continue;
-                if (int.TryParse(KeyValue[0], out _))
+                if (KeyValue[0].Equals("path"))
                     AllPossiblePath.Add(KeyValue[1]);
             }
 
